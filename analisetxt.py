@@ -5,7 +5,7 @@ from tensorflow.keras.preprocessing import sequence
 # Carrega o dataset IMDB
 max_features = 5000
 maxlen = 400
-batch_size = 32
+batch_size = 128
 (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features)
 x_train = sequence.pad_sequences(x_train, maxlen=maxlen)
 x_test = sequence.pad_sequences(x_test, maxlen=maxlen)
@@ -33,7 +33,7 @@ model = tf.keras.Sequential([
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Treina o modelo
-model.fit(x_train, y_train, batch_size=batch_size, epochs=5, validation_data=(x_test, y_test))
+model.fit(x_train, y_train, batch_size=batch_size, epochs=3, validation_data=(x_test, y_test))
 
 # Salvar os pesos do modelo
 model.save_weights('modelo_pesos.h5')
