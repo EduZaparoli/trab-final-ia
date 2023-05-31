@@ -1,3 +1,10 @@
+Este programa utiliza a biblioteca TensorFlow para implementar um modelo de rede neural que realiza classificação de
+sentimento em textos usando o conjunto de dados IMDB. O IMDB é um conjunto de dados de análise de sentimentos em que
+os textos são classificados como positivos ou negativos.
+
+O modelo é compilado com a função model.compile() usando a perda de entropia cruzada binária (binary_crossentropy)
+como função de perda, o otimizador Adam e métricas de acurácia.
+
 DATASET IMDB (linha 2)
 
     A biblioteca TensorFlow possui um conjunto de datasets pré-carregados, incluindo o IMDB (Internet Movie Database),
