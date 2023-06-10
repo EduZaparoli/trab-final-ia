@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing import sequence
 
 import json
 
-maxlen = 400  # Defina o valor correto do comprimento máximo dos textos
+maxlen = 30
 
 # Carregar a arquitetura do modelo
 with open('modelo_arquitetura.json', 'r') as json_file:
