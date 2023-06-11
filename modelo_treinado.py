@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing import sequence
 
 import json
 
-maxlen = 30
+maxlen = 300
 
 # Carregar a arquitetura do modelo
 with open('modelo_arquitetura.json', 'r') as json_file:
