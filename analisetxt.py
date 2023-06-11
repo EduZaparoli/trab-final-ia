@@ -3,6 +3,7 @@ from tensorflow.keras.datasets import imdb
 from tensorflow.keras.preprocessing import sequence
 import matplotlib.pyplot as plt
 import json
+from sklearn.model_selection import train_test_split
 
 
 def load_imdb_dataset(max_features, maxlen):
@@ -83,14 +84,17 @@ def plot_metrics(history, epochs):
 
 
 # Parâmetros
-max_features = 80000
-maxlen = 30
-batch_size = 128
-epochs = 17
+max_features = 25000
+maxlen = 300
+batch_size = 64
+epochs = 3
 learning_rate = 0.001
 
 # Carregar o dataset IMDB
 (x_train, y_train), (x_test, y_test) = load_imdb_dataset(max_features, maxlen)
+
+# Divisão em conjunto de treinamento e conjunto de teste
+x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.2, random_state=42)
 
 # Construir os índices de palavras
 word_index = build_word_index()
@@ -100,7 +104,7 @@ index_to_word = build_index_to_word(word_index)
 model = build_model(max_features)
 
 # Treinar o modelo
-history = train_model(model, x_train, y_train, x_test, y_test, batch_size, epochs, learning_rate)
+history = train_model(model, x_train, y_train, x_val, y_val, batch_size, epochs, learning_rate)
 
 # Salvar os pesos do modelo
 save_model_weights(model, 'modelo_pesos.h5')
@@ -116,3 +120,8 @@ save_index_to_word(index_to_word, 'index_to_word.json')
 
 # Plotar o gráfico de métricas
 plot_metrics(history, epochs)
+
+# Avaliar o desempenho do modelo no conjunto de teste
+loss, accuracy = model.evaluate(x_test, y_test)
+print(f"Acurácia: {accuracy * 100:.2f}%")
+print(f"Perda: {loss * 100:.2f}%")
